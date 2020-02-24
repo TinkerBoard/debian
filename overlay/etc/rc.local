@@ -52,6 +52,23 @@ rk_wifi_init /dev/ttyS0
 # HACK: Prevent blueman from changing rfkill states
 rm /dev/rfkill
 
+# This is a workaround to recover lxde session and rc files.
+if [ ! -e "/home/linaro/.config/openbox/lxde-rc.xml" ] ;
+then
+    echo "The file lxde-rc.xml does not exist."
+else
+    echo "The file lxde-rc.xml exists."
+    if [ -s "/home/linaro/.config/openbox/lxde-rc.xml" ] ;
+    then
+        echo "The file lxde-rc.xml is not empty."
+    else
+        echo "The file lxde-rc.xml is empty."
+        echo "Remove the file lxde-rc.xml and the folder session to recover lxde related files."
+        rm /home/linaro/.config/openbox/lxde-rc.xml
+        rm -rf /home/linaro/.config/lxsession
+    fi
+fi
+
 # Generate the SSH keys if non-existent
 ssh-keygen -A
 
