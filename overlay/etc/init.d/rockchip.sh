@@ -70,6 +70,9 @@ fi
 COMPATIBLE=${COMPATIBLE#rockchip,}
 BOARDNAME=${COMPATIBLE%%rockchip,*}
 
+#create HDMI/DP config for xrandr to save hotplug status
+HDMI_HOTPLUG_CONFIG="/boot/display/hdmi/hdmi_plug_flag.cfg"
+
 # first boot configure
 if [ ! -e "/usr/local/first_boot_flag" ] ;
 then
@@ -106,6 +109,10 @@ then
 
     systemctl restart voltage-detect.service
     systemctl restart jack-switch-at-boot.service
+
+    mkdir /boot/display
+    mkdir /boot/display/hdmi
+    touch $HDMI_HOTPLUG_CONFIG
 fi
 
 # set act-led trigger function
