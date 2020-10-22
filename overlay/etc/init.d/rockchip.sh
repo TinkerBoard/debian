@@ -1,11 +1,11 @@
 #!/bin/bash -e
 ### BEGIN INIT INFO
 # Provides:          rockchip
-# Required-Start:  
-# Required-Stop: 
+# Required-Start:
+# Required-Stop:
 # Default-Start:
 # Default-Stop:
-# Short-Description: 
+# Short-Description:
 # Description:       Setup rockchip platform environment
 ### END INIT INFO
 
@@ -144,6 +144,7 @@ then
 
     touch /usr/local/first_boot_flag
 
+    systemctl restart voltage-detect.service
     systemctl restart jack-switch-at-boot.service
 fi
 

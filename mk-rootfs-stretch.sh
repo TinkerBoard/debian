@@ -206,6 +206,11 @@ ls -s /lib/systemd/system/jack-switch-at-boot.service /etc/systemd/system/multi-
 #--------------Wi-Fi--------------
 ln -s /lib/systemd/system/wifi.service /etc/systemd/system/multi-user.target.wants/wifi.service
 
+#--------------voltage-detect--------------
+ln -s /lib/systemd/system/voltage-detect.service /etc/systemd/system/multi-user.target.wants/voltage-detect.service
+chmod 775 /etc/init.d/voltage-detect.py
+apt-get install -y python-gobject
+
 apt-get install -y plymouth plymouth-themes
 plymouth-set-default-theme script
 

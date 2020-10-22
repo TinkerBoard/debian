@@ -1,0 +1,11 @@
+[Unit]
+Description=Voltage detect
+
+[Service]
+Type=simple
+ExecStart=/etc/init.d/voltage-detect.py
+Environment="DISPLAY=:0" "XAUTHORITY=/home/linaro/.Xauthority"
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
