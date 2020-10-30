@@ -49,7 +49,7 @@ class App():
             None
         )
 
-        if DETECT_ON and (BoardInfo() == 'Tinker Board S' or BoardInfo() == 'Tinker R/BR'):
+        if DETECT_ON :
             self.check()
         else:
             exit()
