@@ -173,8 +173,8 @@ dpkg -i  /packages/ffmpeg/*.deb
 apt-get install -f -y
 
 #---------MPV---------
-dpkg -i  /packages/mpv/*.deb
-apt-get install -f -y
+#dpkg -i  /packages/mpv/*.deb
+#apt-get install -f -y
 
 #---------------Debug--------------
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
