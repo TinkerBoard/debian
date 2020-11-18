@@ -1,0 +1,8 @@
+## BurnIn Test Tool SOP##
+1. double click BurnIn_debian.sh
+2. choose "Execute in Terminal"
+3. Enter test case number, and start test
+
+Log will print to terminal directly, also save to test tool folder.
+file name: $Time_$CASE.txt
+ex. 20190529_1130_cpu.txt¡B20190529_1140_BurnIn.txt......

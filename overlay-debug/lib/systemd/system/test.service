@@ -1,0 +1,14 @@
+#start
+[Unit]
+Description=Setup Test tool environment
+Before=lightdm.service
+After=resize-helper.service
+
+[Service]
+Type=simple
+ExecStart=/etc/init.d/test_tool.sh
+
+[Install]
+WantedBy=multi-user.target
+#end
+

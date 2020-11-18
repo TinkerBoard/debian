@@ -188,6 +188,11 @@ systemctl mask NetworkManager-wait-online.service
 rm /lib/systemd/system/wpa_supplicant@.service
 
 #-------ASUS customization start-------
+if [ "$VERSION" == "debug" ] ; then
+    # Enable test.service to change the owner for the test tools.
+    systemctl enable test.service
+fi
+
 ln -s /lib/systemd/system/hciuart.service /etc/systemd/system/multi-user.target.wants/hciuart.service
 
 #-------------blueman--------------
