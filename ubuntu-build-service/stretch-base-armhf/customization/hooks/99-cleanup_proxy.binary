@@ -1,5 +1,0 @@
-#!/bin/sh  
-
-echo "I: Clean up proxy"
-sed -i "s|localhost:3142/||" ./binary/etc/apt/sources.list
-sed -i "s|localhost:3142/||" ./binary/etc/apt/sources.list.d/*.list

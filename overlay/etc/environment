@@ -1,2 +1,5 @@
 # Enable pcmanfm's outline selection
 PCMANFM_OUTLINE_MODE=1
+
+# Use default X server display
+DISPLAY=:0

@@ -14,6 +14,9 @@ elif [[  "$1" == "rk3399"  ]]; then
 elif [[  "$1" == "rk3399pro"  ]]; then
 	su linaro -c "DISPLAY=:0.0 taskset -c 4-5 glmark2-es2"
 
+elif [[  "$1" == "rk3566" || "$1" == "rk3568"  ]]; then
+	su linaro -c "DISPLAY=:0.0 glmark2-es2"
+
 elif [[  "$1" == "px30" || "$1" == "rk3326"  ]]; then
 	su linaro -c "DISPLAY=:0.0 glmark2-es2"
 
@@ -45,6 +48,10 @@ elif [[ $(expr $COMPATIBLE : ".*rk3399") -ne 0 ]]; then
     CHIPNAME="rk3399"
 elif [[ $(expr $COMPATIBLE : ".*rk3399pro") -ne 0 ]]; then
     CHIPNAME="rk3399pro"
+elif [[ $(expr $COMPATIBLE : ".*rk3566") -ne 0 ]]; then
+    CHIPNAME="rk3566"
+elif [[ $(expr $COMPATIBLE : ".*rk3568") -ne 0 ]]; then
+    CHIPNAME="rk3568"
 elif [[ $(expr $COMPATIBLE : ".*rk1808") -ne 0 ]]; then
     CHIPNAME="rk1808"
 elif [[ $(expr $COMPATIBLE : ".*px3se") -ne 0 ]]; then

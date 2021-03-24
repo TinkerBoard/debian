@@ -10,88 +10,33 @@
 ### END INIT INFO
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-function link_mali() {
-if [ "$1" == "rk3288" ];
-then
-    GPU_VERSION=$(cat /sys/devices/platform/*gpu/gpuinfo)
-    if echo $GPU_VERSION|grep -q r1p0;
-    then
-        dpkg -i  /packages/libmali/libmali-rk-midgard-t76x-r18p0-r1p0_*.deb #3288w
-    else
-        dpkg -i  /packages/libmali/libmali-rk-midgard-t76x-r18p0-r0p0_*.deb
-    fi
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-elif [[  "$1" == "rk3328"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-utgard-450-*.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-    mv /etc/X11/xorg.conf.d/20-modesetting.conf /etc/X11/xorg.conf.d/20-modesetting.conf.backup
-    mv /etc/X11/xorg.conf.d/20-armsoc.conf.backup /etc/X11/xorg.conf.d/20-armsoc.conf
-elif [[  "$1" == "rk3399"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-midgard-t86x-*.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-elif [[  "$1" == "rk3399pro"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-midgard-t86x-*.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-elif [[  "$1" == "rk3326"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-bifrost-g31-*.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-elif [[  "$1" == "px30"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-bifrost-g31-*.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-elif [[  "$1" == "rk3128"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-utgard-400-*.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-elif [[  "$1" == "rk3036"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-utgard-400-*.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-    mv /etc/X11/xorg.conf.d/20-modesetting.conf /etc/X11/xorg.conf.d/20-modesetting.conf.backup
-    mv /etc/X11/xorg.conf.d/20-armsoc.conf.backup /etc/X11/xorg.conf.d/20-armsoc.conf
-    # sed -i -e 's:"SWcursor"              "false":"SWcursor"              "true":' \
-    #     -i /etc/X11/xorg.conf.d/20-armsoc.conf
-fi
-if [ -e "/usr/lib/aarch64-linux-gnu" ]; then
-    cd /usr/lib/aarch64-linux-gnu/
-    if [ -e "libEGL.so.1.1.0" ]; then
-        rm libEGL.so.1.1.0
-    elif [ -e "libGLESv2.so.2.0.0" ]; then
-	rm libGLESv2.so.2.0.0
-    elif [ -e "libGLEW.so.2.0.0" ]; then
-	rm libGLEW.so.2.0.0
-    fi
-    ln -sf libMali.so libEGL.so.1.1.0
-    ln -sf libMali.so libEGL.so
-    ln -sf libMali.so libEGL.so.1.0.0
-    ln -sf libMali.so libEGL.so.1.4
-    ln -sf libMali.so libGLESv2.so
-    ln -sf libMali.so libGLESv2.so.2.0
-    ln -sf libMali.so libGLESv2.so.2.0.0
-    ln -sf libMali.so libGLESv1_CM.so
-    ln -sf libMali.so libGLESv1_CM.so.1
-    ln -sf libMali.so libGLESv1_CM.so.1.1
+install_mali() {
+    case $1 in
+        rk3288)
+            MALI=midgard-t76x-r18p0-r0p0
 
-fi
-if [ -e "/usr/lib/arm-linux-gnueabihf" ]; then
-    cd /usr/lib/arm-linux-gnueabihf/
-    if [ -e "libEGL.so.1.1.0" ]; then
-        rm libEGL.so.1.1.0
-    elif [ -e "libGLESv2.so.2.0.0" ]; then
-	rm libGLESv2.so.2.0.0
-    elif [ -e "libGLEW.so.2.0.0" ]; then
-	rm libGLEW.so.2.0.0
-    fi
+            # 3288w
+            cat /sys/devices/platform/*gpu/gpuinfo | grep -q r1p0 && \
+                MALI=midgard-t76x-r18p0-r1p0
+            ;;
+        rk3399|rk3399pro)
+            MALI=midgard-t86x-r18p0
+            ;;
+        rk3328)
+            MALI=utgard-450
+            ;;
+        rk3326|px30)
+            MALI=bifrost-g31
+            ;;
+        rk3128|rk3036)
+            MALI=utgard-400
+            ;;
+        rk3568|rk3566)
+            MALI=bifrost-g52
+            ;;
+    esac
 
-    ln -sf libMali.so libEGL.so.1.1.0
-    ln -sf libMali.so libEGL.so
-    ln -sf libMali.so libEGL.so.1.0.0
-    ln -sf libMali.so libEGL.so.1.4
-    ln -sf libMali.so libGLESv2.so
-    ln -sf libMali.so libGLESv2.so.2.0
-    ln -sf libMali.so libGLESv2.so.2.0.0
-    ln -sf libMali.so libGLESv1_CM.so
-    ln -sf libMali.so libGLESv1_CM.so.1
-    ln -sf libMali.so libGLESv1_CM.so.1.1
-fi
-
+    apt install -f /packages/libmali/libmali-*$MALI*-x11*.deb
 }
 
 function update_npu_fw() {
@@ -117,6 +62,8 @@ elif [[ $COMPATIBLE =~ "px30" ]]; then
     CHIPNAME="px30"
 elif [[ $COMPATIBLE =~ "rk3128" ]]; then
     CHIPNAME="rk3128"
+elif [[ $COMPATIBLE =~ "rk3568" ]]; then
+    CHIPNAME="rk3568"
 else
     CHIPNAME="rk3036"
 fi
@@ -132,8 +79,19 @@ then
     # Force rootfs synced
     mount -o remount,sync /
 
-    link_mali ${CHIPNAME}
+    install_mali ${CHIPNAME}
     setcap CAP_SYS_ADMIN+ep /usr/bin/gst-launch-1.0
+
+    # Cannot open pixbuf loader module file
+    if [ -e "/usr/lib/arm-linux-gnueabihf" ] ;
+    then
+	/usr/lib/arm-linux-gnueabihf/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > /usr/lib/arm-linux-gnueabihf/gdk-pixbuf-2.0/2.10.0/loaders.cache
+	update-mime-database /usr/share/mime/
+    elif [ -e "/usr/lib/aarch64-linux-gnu" ];
+    then
+	/usr/lib/aarch64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > /usr/lib/aarch64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache
+    fi
+
     rm -rf /packages
 
     # The base target does not come with lightdm
@@ -178,7 +136,7 @@ then
 fi
 
 # support power management
-if [ -e "/usr/sbin/pm-suspend" ] ;
+if [ -e "/usr/sbin/pm-suspend" -a -e /etc/Powermanageer ] ;
 then
     mv /etc/Powermanager/power-key.sh /usr/bin/
     mv /etc/Powermanager/power-key.conf /etc/triggerhappy/triggers.d/
@@ -192,6 +150,14 @@ then
     rm /etc/Powermanager -rf
     service triggerhappy restart
 fi
+
+# Create dummy video node for chromium V4L2 VDA/VEA with rkmpp plugin
+echo dec > /dev/video-dec0
+echo enc > /dev/video-enc0
+
+# The chromium using fixed pathes for libv4l2.so
+ln -rsf /usr/lib/*/libv4l2.so /usr/lib/
+[ -e /usr/lib/aarch64-linux-gnu/ ] && ln -Tsf lib /usr/lib64
 
 # read mac-address from efuse
 # if [ "$BOARDNAME" == "rk3288-miniarm" ]; then

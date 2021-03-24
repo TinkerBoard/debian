@@ -6,4 +6,7 @@ for service in ${services[@]}; do
   systemctl disable ${service}-wait-online.service
 done
 
+# disbale the wire/nl80211
+systemctl mask wpa_supplicant-wired@
+systemctl mask wpa_supplicant-nl80211@
 systemctl mask wpa_supplicant@
