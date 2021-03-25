@@ -12,8 +12,8 @@
 rootfs
 binary
 linaro-jessie-alip-*.tar.gz
-#linaro-stretch-alip-*.tar.gz
-linaro-buster-alip-*.tar.gz
+linaro-stretch-alip-*.tar.gz
+#linaro-buster-alip-*.tar.gz
 linaro-rootfs.img
 release
 build
