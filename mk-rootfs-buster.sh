@@ -19,6 +19,11 @@ if [ ! $VERSION ]; then
 	VERSION="debug"
 fi
 
+# Initialized to "eng", however this should be set in build.sh
+if [ ! $VERSION_NUMBER ]; then
+	VERSION_NUMBER="eng"
+fi
+
 if [ ! -e linaro-buster-alip-*.tar.gz ]; then
 	echo "\033[36m Run mk-base-debian.sh first \033[0m"
 fi
@@ -65,8 +70,10 @@ elif [ "$ARCH" == "arm64" ]; then
     sudo cp overlay-firmware/usr/bin/rk_wifi_init_64 $TARGET_ROOTFS_DIR/usr/bin/rk_wifi_init
 fi
 sudo mkdir -p $TARGET_ROOTFS_DIR/system/lib/modules/
-sudo find ../kernel/drivers/net/wireless/rockchip_wlan/*  -name "*.ko" | \
-    xargs -n1 -i sudo cp {} $TARGET_ROOTFS_DIR/system/lib/modules/
+#sudo find ../kernel/drivers/net/wireless/rockchip_wlan/*  -name "*.ko" | \
+#    xargs -n1 -i sudo cp {} $TARGET_ROOTFS_DIR/system/lib/modules/
+# ASUS: Change to copy all the kernel modules built from build.sh.
+sudo cp -rf  lib_modules/lib/modules $TARGET_ROOTFS_DIR/lib/
 
 # adb
 if [ "$ARCH" == "armhf" ] && [ "$VERSION" == "debug" ]; then
@@ -160,10 +167,10 @@ dpkg -i  /packages/ffmpeg/*.deb
 apt-get install -f -y
 
 #------------------mpv------------
-echo -e "\033[36m Install mpv.................... \033[0m"
-apt-get install -y libmpv1 mpv
-dpkg -i  /packages/mpv/*.deb
-apt-get install -f -y
+#echo -e "\033[36m Install mpv.................... \033[0m"
+#apt-get install -y libmpv1 mpv
+#dpkg -i  /packages/mpv/*.deb
+#apt-get install -f -y
 
 #---------update chromium-----
 apt-get install -y chromium
@@ -185,6 +192,48 @@ apt-get install -f -y
 systemctl mask systemd-networkd-wait-online.service
 systemctl mask NetworkManager-wait-online.service
 rm /lib/systemd/system/wpa_supplicant@.service
+
+#-------ASUS customization start-------
+if [ "$VERSION" == "debug" ] ; then
+    # Enable test.service to change the owner for the test tools.
+    systemctl enable test.service
+fi
+
+ln -s /lib/systemd/system/hciuart.service /etc/systemd/system/multi-user.target.wants/hciuart.service
+
+#-------------blueman--------------
+bash /etc/init.d/blueman.sh
+rm /etc/init.d/blueman.sh
+
+#-------------mount partition p7--------------
+systemctl enable mountboot.service
+
+#--------------Audio--------------
+chmod 755 /etc/pulse/movesinks.sh
+chmod 755 /etc/audio/jack_auto_switch.sh
+chmod 755 /etc/audio/jack_switch_at_boot.sh
+ls -s /lib/systemd/system/jack-switch-at-boot.service /etc/systemd/system/multi-user.target.wants/jack-switch-at-boot.service
+
+#--------------Wi-Fi--------------
+ln -s /lib/systemd/system/wifi.service /etc/systemd/system/multi-user.target.wants/wifi.service
+
+#--------------voltage-detect--------------
+ln -s /lib/systemd/system/voltage-detect.service /etc/systemd/system/multi-user.target.wants/voltage-detect.service
+chmod 775 /etc/init.d/voltage-detect.py
+apt-get install -y python-gobject
+
+apt-get install -y plymouth plymouth-themes
+plymouth-set-default-theme script
+
+# Don't show this on menu for now since it does not work.
+rm /usr/share/applications/squeak.desktop
+
+# With the packages xfonts-100dpi and xfonts-75dpi installed, this is to avoid warning when opening xkeycaps.
+xset +fp /usr/share/fonts/X11/75dpi/
+xset +fp /usr/share/fonts/X11/100dpi/
+
+sudo echo $VERSION_NUMBER > /etc/version
+#-------ASUS customization end-------
 
 #---------------Clean--------------
 rm -rf /var/lib/apt/lists/*

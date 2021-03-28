@@ -1,11 +1,11 @@
 #!/bin/bash -e
 ### BEGIN INIT INFO
 # Provides:          rockchip
-# Required-Start:
-# Required-Stop:
+# Required-Start:  
+# Required-Stop: 
 # Default-Start:
 # Default-Stop:
-# Short-Description:
+# Short-Description: 
 # Description:       Setup rockchip platform environment
 ### END INIT INFO
 
