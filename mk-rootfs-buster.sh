@@ -109,71 +109,86 @@ chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 chmod +x /etc/rc.local
 
 #---------------power management --------------
-apt-get install -y busybox pm-utils triggerhappy
+# The following packages are included in the base system.
+#apt-get install -y busybox pm-utils triggerhappy
 cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.service
 
 #---------------system--------------
-apt-get install -y git fakeroot devscripts cmake binfmt-support dh-make dh-exec pkg-kde-tools device-tree-compiler \
-bc cpio parted dosfstools mtools libssl-dev dpkg-dev isc-dhcp-client-ddns
-apt-get install -f -y
+# The following packages are included in the base system.
+#apt-get install -y git fakeroot devscripts cmake binfmt-support dh-make dh-exec pkg-kde-tools device-tree-compiler \
+#bc cpio parted dosfstools mtools libssl-dev dpkg-dev isc-dhcp-client-ddns
+#apt-get install -f -y
 
 #---------------Rga--------------
 dpkg -i /packages/rga/*.deb
 
 echo -e "\033[36m Setup Video.................... \033[0m"
-apt-get install -y gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa \
-gstreamer1.0-plugins-base-apps qtmultimedia5-examples
-apt-get install -f -y
+# The following packages are included in the base system.
+#apt-get install -y gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa \
+#gstreamer1.0-plugins-base-apps qtmultimedia5-examples
+#apt-get install -f -y
 
 dpkg -i  /packages/mpp/*
 dpkg -i  /packages/gst-rkmpp/*.deb
 #apt-mark hold gstreamer1.0-x
-apt-get install -f -y
+# Fix the installation in the end.
+#apt-get install -f -y
 
 #---------Camera---------
 echo -e "\033[36m Install camera.................... \033[0m"
-apt-get install cheese v4l-utils -y
+# The following packages are included in the base system.
+#apt-get install cheese v4l-utils -y
 dpkg -i  /packages/rkisp/*.deb
 dpkg -i  /packages/libv4l/*.deb
 
 #---------Xserver---------
 echo -e "\033[36m Install Xserver.................... \033[0m"
 #apt-get build-dep -y xorg-server-source
-apt-get install -y libgl1-mesa-dev libgles1 libgles1 libegl1-mesa-dev libc-dev-bin libc6-dev libfontenc-dev libfreetype6-dev \
-libpciaccess-dev libpng-dev libpng-tools libxfont-dev libxkbfile-dev linux-libc-dev manpages manpages-dev xserver-common zlib1g-dev \
-libdmx1 libpixman-1-dev libxcb-xf86dri0 libxcb-xv0
-apt-get install -f -y
+# The following packages are included in the base system.
+#apt-get install -y libgl1-mesa-dev libgles1 libgles1 libegl1-mesa-dev libc-dev-bin libc6-dev libfontenc-dev libfreetype6-dev \
+#libpciaccess-dev libpng-dev libpng-tools libxfont-dev libxkbfile-dev linux-libc-dev manpages manpages-dev xserver-common zlib1g-dev \
+#libdmx1 libpixman-1-dev libxcb-xf86dri0 libxcb-xv0
+#apt-get install -f -y
 
 dpkg -i /packages/xserver/*.deb
-apt-get install -f -y
+# Fix the installation in the end.
+#apt-get install -f -y
 # apt-mark hold xserver-common xserver-xorg-core xserver-xorg-legacy
 
 #---------------Openbox--------------
 echo -e "\033[36m Install openbox.................... \033[0m"
-apt-get install -y openbox
+# The following package is included in the base system.
+#apt-get install -y openbox
 dpkg -i  /packages/openbox/*.deb
-apt-get install -f -y
+# Fix the installation in the end.
+#apt-get install -f -y
 
 #------------------pcmanfm------------
 echo -e "\033[36m Install pcmanfm.................... \033[0m"
-apt-get install -y pcmanfm
+# The following package is included in the base system.
+#apt-get install -y pcmanfm
 dpkg -i  /packages/pcmanfm/*.deb
-apt-get install -f -y
+# Fix the installation in the end.
+#apt-get install -f -y
 
 #------------------ffmpeg------------
 echo -e "\033[36m Install ffmpeg.................... \033[0m"
-apt-get install -y ffmpeg
+# The following package is included in the base system.
+#apt-get install -y ffmpeg
 dpkg -i  /packages/ffmpeg/*.deb
-apt-get install -f -y
+# Fix the installation in the end.
+#apt-get install -f -y
 
 #------------------mpv------------
+# Don't install mpv since we don't have the license.
 #echo -e "\033[36m Install mpv.................... \033[0m"
 #apt-get install -y libmpv1 mpv
 #dpkg -i  /packages/mpv/*.deb
 #apt-get install -f -y
 
 #---------update chromium-----
-apt-get install -y chromium
+# The following package is included in the base system.
+#apt-get install -y chromium
 apt-get install -f -y /packages/chromium/*.deb
 
 #------------------libdrm------------
@@ -220,9 +235,7 @@ ln -s /lib/systemd/system/wifi.service /etc/systemd/system/multi-user.target.wan
 #--------------voltage-detect--------------
 ln -s /lib/systemd/system/voltage-detect.service /etc/systemd/system/multi-user.target.wants/voltage-detect.service
 chmod 775 /etc/init.d/voltage-detect.py
-apt-get install -y python-gobject
 
-apt-get install -y plymouth plymouth-themes
 plymouth-set-default-theme script
 
 # Don't show this on menu for now since it does not work.
