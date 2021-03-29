@@ -49,7 +49,9 @@ sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
 
 # overlay-debug folder
 # adb, video, camera  test file
+if [ "$VERSION" == "debug" ]; then
 sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
+fi
 
 ## hack the serial
 sudo cp -f overlay/usr/lib/systemd/system/serial-getty@.service $TARGET_ROOTFS_DIR/lib/systemd/system/serial-getty@.service
@@ -74,13 +76,6 @@ sudo mkdir -p $TARGET_ROOTFS_DIR/system/lib/modules/
 #    xargs -n1 -i sudo cp {} $TARGET_ROOTFS_DIR/system/lib/modules/
 # ASUS: Change to copy all the kernel modules built from build.sh.
 sudo cp -rf  lib_modules/lib/modules $TARGET_ROOTFS_DIR/lib/
-
-# adb
-if [ "$ARCH" == "armhf" ] && [ "$VERSION" == "debug" ]; then
-	sudo cp -rf overlay-debug/usr/local/share/adb/adbd-32 $TARGET_ROOTFS_DIR/usr/local/bin/adbd
-elif [ "$ARCH" == "arm64"  ]; then
-	sudo cp -rf overlay-debug/usr/local/share/adb/adbd-64 $TARGET_ROOTFS_DIR/usr/local/bin/adbd
-fi
 
 # glmark2
 sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/glmark2
