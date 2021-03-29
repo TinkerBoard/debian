@@ -194,7 +194,7 @@ apt-get install -f -y /packages/chromium/*.deb
 #------------------libdrm------------
 echo -e "\033[36m Install libdrm.................... \033[0m"
 dpkg -i  /packages/libdrm/*.deb
-apt-get install -f -y
+#apt-get install -f -y
 
 # mark package to hold
 # apt-mark hold libv4l-0 libv4l2rds0 libv4lconvert0 libv4l-dev v4l-utils
@@ -245,7 +245,11 @@ rm /usr/share/applications/squeak.desktop
 xset +fp /usr/share/fonts/X11/75dpi/
 xset +fp /usr/share/fonts/X11/100dpi/
 
-sudo echo $VERSION_NUMBER > /etc/version
+# Clean up and fix the packages installation.
+apt-get install -f -y
+apt autoremove -y
+
+echo $VERSION_NUMBER > /etc/version
 #-------ASUS customization end-------
 
 #---------------Clean--------------
