@@ -139,6 +139,7 @@ echo -e "\033[36m Install camera.................... \033[0m"
 #apt-get install cheese v4l-utils -y
 dpkg -i  /packages/rkisp/*.deb
 dpkg -i  /packages/libv4l/*.deb
+cp /packages/rkisp/librkisp.so /usr/lib/
 
 #---------Xserver---------
 echo -e "\033[36m Install Xserver.................... \033[0m"
