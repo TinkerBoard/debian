@@ -56,13 +56,6 @@ fi
 ## hack the serial
 sudo cp -f overlay/usr/lib/systemd/system/serial-getty@.service $TARGET_ROOTFS_DIR/lib/systemd/system/serial-getty@.service
 
-# adb
-if [ "$ARCH" == "armhf" ] && [ "$VERSION" == "debug" ]; then
-	sudo cp -rf overlay-debug/usr/local/share/adb/adbd-32 $TARGET_ROOTFS_DIR/usr/local/bin/adbd
-elif [ "$ARCH" == "arm64"  ]; then
-	sudo cp -rf overlay-debug/usr/local/share/adb/adbd-64 $TARGET_ROOTFS_DIR/usr/local/bin/adbd
-fi
-
 # bt/wifi firmware
 if [ "$ARCH" == "armhf" ]; then
     sudo cp overlay-firmware/usr/bin/brcm_patchram_plus1_32 $TARGET_ROOTFS_DIR/usr/bin/brcm_patchram_plus1
@@ -76,6 +69,13 @@ sudo mkdir -p $TARGET_ROOTFS_DIR/system/lib/modules/
 #    xargs -n1 -i sudo cp {} $TARGET_ROOTFS_DIR/system/lib/modules/
 # ASUS: Change to copy all the kernel modules built from build.sh.
 sudo cp -rf  lib_modules/lib/modules $TARGET_ROOTFS_DIR/lib/
+
+# adb
+if [ "$ARCH" == "armhf" ] && [ "$VERSION" == "debug" ]; then
+	sudo cp -rf overlay-debug/usr/local/share/adb/adbd-32 $TARGET_ROOTFS_DIR/usr/local/bin/adbd
+elif [ "$ARCH" == "arm64"  ]; then
+	sudo cp -rf overlay-debug/usr/local/share/adb/adbd-64 $TARGET_ROOTFS_DIR/usr/local/bin/adbd
+fi
 
 # glmark2
 sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/glmark2
@@ -131,8 +131,7 @@ echo -e "\033[36m Setup Video.................... \033[0m"
 dpkg -i  /packages/mpp/*
 dpkg -i  /packages/gst-rkmpp/*.deb
 #apt-mark hold gstreamer1.0-x
-# Fix the installation in the end.
-#apt-get install -f -y
+apt-get install -f -y
 
 #---------Camera---------
 echo -e "\033[36m Install camera.................... \033[0m"
@@ -151,8 +150,7 @@ echo -e "\033[36m Install Xserver.................... \033[0m"
 #apt-get install -f -y
 
 dpkg -i /packages/xserver/*.deb
-# Fix the installation in the end.
-#apt-get install -f -y
+apt-get install -f -y
 # apt-mark hold xserver-common xserver-xorg-core xserver-xorg-legacy
 
 #---------------Openbox--------------
@@ -160,24 +158,21 @@ echo -e "\033[36m Install openbox.................... \033[0m"
 # The following package is included in the base system.
 #apt-get install -y openbox
 dpkg -i  /packages/openbox/*.deb
-# Fix the installation in the end.
-#apt-get install -f -y
+apt-get install -f -y
 
 #------------------pcmanfm------------
 echo -e "\033[36m Install pcmanfm.................... \033[0m"
 # The following package is included in the base system.
 #apt-get install -y pcmanfm
 dpkg -i  /packages/pcmanfm/*.deb
-# Fix the installation in the end.
-#apt-get install -f -y
+apt-get install -f -y
 
 #------------------ffmpeg------------
 echo -e "\033[36m Install ffmpeg.................... \033[0m"
 # The following package is included in the base system.
 #apt-get install -y ffmpeg
 dpkg -i  /packages/ffmpeg/*.deb
-# Fix the installation in the end.
-#apt-get install -f -y
+apt-get install -f -y
 
 #------------------mpv------------
 # Don't install mpv since we don't have the license.
@@ -194,7 +189,7 @@ apt-get install -f -y /packages/chromium/*.deb
 #------------------libdrm------------
 echo -e "\033[36m Install libdrm.................... \033[0m"
 dpkg -i  /packages/libdrm/*.deb
-#apt-get install -f -y
+apt-get install -f -y
 
 # mark package to hold
 # apt-mark hold libv4l-0 libv4l2rds0 libv4lconvert0 libv4l-dev v4l-utils
@@ -247,8 +242,7 @@ rm /usr/share/applications/squeak.desktop
 xset +fp /usr/share/fonts/X11/75dpi/
 xset +fp /usr/share/fonts/X11/100dpi/
 
-# Clean up and fix the packages installation.
-apt-get install -f -y
+# Remove packages which are not needed.
 apt autoremove -y
 
 echo $VERSION_NUMBER > /etc/version
