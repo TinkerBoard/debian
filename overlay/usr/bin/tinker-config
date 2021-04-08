@@ -344,11 +344,11 @@ get_audio() {
     alsa_output.OnBoard_D2)
       echo 3
       ;;
-    alsa_output.platform-sound-simple-card.analog-stereo)
+    alsa_output.Hdmi_Sound)
       echo 4
       ;;
     *)
-      /etc/pulse/movesinks.sh alsa_output.platform-sound-simple-card.analog-stereo > /dev/null
+      /etc/pulse/movesinks.sh alsa_output.Hdmi_Sound > /dev/null
       echo 4
       ;;
   esac
@@ -381,7 +381,7 @@ do_audio() {
         AUDIO_ARG="alsa_output.OnBoard_D2"
         ;;
       4)
-        AUDIO_ARG="alsa_output.platform-sound-simple-card.analog-stereo"
+        AUDIO_ARG="alsa_output.Hdmi_Sound"
         ;;
       *)
         whiptail --msgbox "Programmer error: unrecognized option" 20 60 1
