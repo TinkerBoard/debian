@@ -192,6 +192,10 @@ echo -e "\033[36m Install libdrm.................... \033[0m"
 dpkg -i  /packages/libdrm/*.deb
 apt-get install -f -y
 
+#------------------aiccagent-----
+echo -e "\033[36m Install aiccagent.................... \033[0m"
+apt-get install -f -y /packages/aiccagent/*.deb
+
 # mark package to hold
 # apt-mark hold libv4l-0 libv4l2rds0 libv4lconvert0 libv4l-dev v4l-utils
 #apt-mark hold librockchip-mpp1 librockchip-mpp-static librockchip-vpu0 rockchip-mpp-demos
