@@ -118,6 +118,17 @@ else
     echo mmc0 > /sys/class/leds/act-led/trigger
 fi
 
+# set cpu governor and frequence
+CPU_GOVERNOR=$(cat /boot/config.txt | grep 'governor' | cut -d '=' -f2)
+A17_MINFREQ=$(cat /boot/config.txt | grep 'a17_minfreq' | cut -d '=' -f2)
+A17_MAXFREQ=$(cat /boot/config.txt | grep 'a17_maxfreq' | cut -d '=' -f2)
+
+if [ $CPU_GOVERNOR ] && [ $A17_MINFREQ -gt 0 ] && [ $A17_MAXFREQ -gt 0 ]; then
+    sudo su -c "echo $CPU_GOVERNOR > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor"
+    sudo su -c "echo $A17_MINFREQ > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq"
+    sudo su -c "echo $A17_MAXFREQ > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq"
+fi
+
 # enable adbd service
 if [ -e "/etc/init.d/adbd.sh" ] ;
 then

@@ -230,6 +230,13 @@ ln -s /lib/systemd/system/hciuart.service /etc/systemd/system/multi-user.target.
 bash /etc/init.d/blueman.sh
 rm /etc/init.d/blueman.sh
 
+#---------------ncurses library--------------
+# For tinker-power-management build
+cd /usr/local/share/tinker-power-management
+gcc tinker-power-management.c -o tinker-power-management -lncursesw
+mv tinker-power-management /usr/bin
+cd /
+
 #--------------Audio--------------
 chmod 755 /etc/pulse/movesinks.sh
 chmod 755 /etc/audio/jack_auto_switch.sh
