@@ -209,7 +209,15 @@ systemctl mask NetworkManager-wait-online.service
 rm /lib/systemd/system/wpa_supplicant@.service
 
 #-------ASUS customization start-------
+# Remove packages which are not needed.
+apt autoremove -y
+
+echo $VERSION_NUMBER > /etc/version
+
 systemctl enable rockchip.service
+
+#-------------mount partition p7--------------
+systemctl enable mountboot.service
 
 if [ "$VERSION" == "debug" ] ; then
     # Enable test.service to change the owner for the test tools.
@@ -221,9 +229,6 @@ ln -s /lib/systemd/system/hciuart.service /etc/systemd/system/multi-user.target.
 #-------------blueman--------------
 bash /etc/init.d/blueman.sh
 rm /etc/init.d/blueman.sh
-
-#-------------mount partition p7--------------
-systemctl enable mountboot.service
 
 #--------------Audio--------------
 chmod 755 /etc/pulse/movesinks.sh
@@ -246,11 +251,6 @@ rm /usr/share/applications/squeak.desktop
 # With the packages xfonts-100dpi and xfonts-75dpi installed, this is to avoid warning when opening xkeycaps.
 xset +fp /usr/share/fonts/X11/75dpi/
 xset +fp /usr/share/fonts/X11/100dpi/
-
-# Remove packages which are not needed.
-apt autoremove -y
-
-echo $VERSION_NUMBER > /etc/version
 #-------ASUS customization end-------
 
 #---------------Clean--------------
