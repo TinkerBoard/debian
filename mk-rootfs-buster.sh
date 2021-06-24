@@ -242,6 +242,7 @@ chmod 755 /etc/pulse/movesinks.sh
 chmod 755 /etc/audio/jack_auto_switch.sh
 chmod 755 /etc/audio/jack_switch_at_boot.sh
 ls -s /lib/systemd/system/jack-switch-at-boot.service /etc/systemd/system/multi-user.target.wants/jack-switch-at-boot.service
+chmod 755 /etc/audio/audio_setting.sh
 
 #--------------Wi-Fi--------------
 ln -s /lib/systemd/system/wifi.service /etc/systemd/system/multi-user.target.wants/wifi.service

@@ -36,13 +36,8 @@ load-module module-switch-on-port-available
 ### (it's probably better to not load these drivers manually, but instead
 ### use module-udev-detect -- see below -- for doing this automatically)
 #load-module module-alsa-sink
-load-module module-alsa-sink device=OnBoard_D0 sink_properties=device.description="BT_VOIP-Output"
-load-module module-alsa-sink device=OnBoard_D1 sink_properties=device.description="SPDIF-Output"
-load-module module-alsa-sink device=OnBoard_D2 sink_properties=device.description="Headset-Output"
 load-module module-alsa-sink device=Hdmi_Sound sink_properties=device.description="HDMI-Sound-Output"
 #load-module module-alsa-source device=hw:1,0
-load-module module-alsa-source device=OnBoard_D0 source_properties=device.description="BT_VOIP-Input"
-load-module module-alsa-source device=OnBoard_D1 source_properties=device.description="Headset-Input"
 #load-module module-oss device="/dev/dsp" sink_name=output source_name=input
 #load-module module-oss-mmap device="/dev/dsp" sink_name=output source_name=input
 #load-module module-null-sink
@@ -145,4 +140,3 @@ load-module module-filter-apply
 ### Make some devices default
 #set-default-sink output
 #set-default-source input
-set-default-source alsa_input.OnBoard_D1

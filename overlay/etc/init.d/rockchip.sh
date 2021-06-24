@@ -76,6 +76,8 @@ then
     echo "It's the first time booting."
     echo "The rootfs will be configured."
 
+    /etc/audio/audio_setting.sh
+
     # Force rootfs synced
     mount -o remount,sync /
 
