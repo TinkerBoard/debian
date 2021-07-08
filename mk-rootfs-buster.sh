@@ -186,6 +186,7 @@ apt-get install -f -y
 # The following package is included in the base system.
 #apt-get install -y chromium
 apt-get install -f -y /packages/chromium/*.deb
+cp /packages/chromium/chromium.desktop /usr/share/applications/chromium.desktop
 
 #------------------libdrm------------
 echo -e "\033[36m Install libdrm.................... \033[0m"
