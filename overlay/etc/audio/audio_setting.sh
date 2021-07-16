@@ -10,9 +10,19 @@ else
 	if [ "$?" == "0" ]; then
 		audio_codec="y"
 	else
-		audio_codec="n"
-		sudo cp /etc/audio/init_default.pa /etc/pulse/default.pa
-		sudo cp /etc/audio/init_audio.conf /etc/audio/audio.conf
+		lsusb | grep "0bda:4030"
+		if [ "$?" == "0" ]; then
+			audio_codec="y"
+		else
+			lsusb | grep "0bda:49f6"
+			if [ "$?" == "0" ]; then
+				audio_codec="y"
+			else
+				audio_codec="n"
+				sudo cp /etc/audio/init_default.pa /etc/pulse/default.pa
+				sudo cp /etc/audio/init_audio.conf /etc/audio/audio.conf
+			fi
+		fi
 	fi
 fi
 
