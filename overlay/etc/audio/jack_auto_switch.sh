@@ -4,7 +4,7 @@ sudo -u linaro PULSE_RUNTIME_PATH=/run/user/1000/pulse pacmd set-card-profile al
 sudo -u linaro PULSE_RUNTIME_PATH=/run/user/1000/pulse pacmd set-card-profile alsa_card.usb-Generic_USB_Audio_201405280001-00 off
 
 boardinfo=`cat /proc/boardinfo`
-if [ "${boardinfo}" != "Tinker Board S" ] && [ "${boardinfo}" != "Tinker R/BR" ] && [ "${boardinfo}" != "Tinker Board S/HV" ] && [ "${boardinfo}" != "Tinker Board R2" ]; then
+if [ "${boardinfo}" != "Tinker Board S" ] && [ "${boardinfo}" != "Tinker R/BR" ] && [ "${boardinfo}" != "Tinker Board S/HV" ] && [ "${boardinfo}" != "Tinker Board R2" ] && [ "${boardinfo}" != "Tinker Board S R2.0" ]; then
 	exit 0
 fi
 
