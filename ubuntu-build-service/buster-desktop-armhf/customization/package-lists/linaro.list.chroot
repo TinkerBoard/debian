@@ -3,6 +3,7 @@
 #ltrace
 #netperf
 #rt-app
+# No linaro pcakge server
 #96boards-tools-common
 acpi-support-base
 adduser
@@ -11,6 +12,8 @@ anacron
 android-tools-adb
 apt
 apt-utils
+# This is for florence.
+#at-spi2-core
 #babeltrace
 bash-completion
 bc
@@ -56,6 +59,8 @@ fakeroot
 fbset
 ffmpeg
 file
+# Crash for armhf
+#florence
 fonts-arphic-ukai
 fonts-arphic-uming
 fonts-freefont-ttf
@@ -109,6 +114,8 @@ kmod
 less
 libc-dev-bin
 libc6-dev
+# No this package for Buster
+#libcdio-paranoia1
 libdmx-dev
 libdmx1
 libegl1-mesa-dev
@@ -137,6 +144,8 @@ libqt5core5a
 libqt5gui5
 libqt5multimedia5
 libqt5multimedia5-plugins
+# No this package for Buster
+#libqt5multimediaquick-p5
 libqt5opengl5
 libqt5qml5
 libqt5quick5
@@ -147,16 +156,20 @@ libssl-dev
 libunwind8
 libwacom-common
 libwacom2
+# No armhf package for Buster
+#libxatracker2
 libxcb-xf86dri0
 libxcb-xf86dri0-dev
 libxcb-xv0
 libxcb-xv0-dev
 libxcursor-dev
+# No this package for Buster
+#libxfont1
 libxfont-dev
 libxkbfile-dev
-#libxatracker2
 libxml2-dev
 lightdm
+# No linaro packages server
 #linaro-artwork
 #linaro-default-settings
 #linaro-overlay-minimal
@@ -169,7 +182,7 @@ lshw
 lsof
 lxde
 lxlauncher
-#lxmusic
+lxmusic
 lxpolkit
 lxsession-default-apps
 lxsession-logout

@@ -213,11 +213,15 @@ rm /lib/systemd/system/wpa_supplicant@.service
 # Remove packages which are not needed.
 apt autoremove -y
 
-echo $VERSION_NUMBER > /etc/version
+bash /etc/init.d/blueman.sh
+rm /etc/init.d/blueman.sh
+
+# Don't show this on menu for now since it does not work.
+rm /usr/share/applications/squeak.desktop
 
 systemctl enable rockchip.service
 
-#-------------mount partition p7--------------
+# mount partition p7
 systemctl enable mountboot.service
 
 if [ "$VERSION" == "debug" ] ; then
@@ -226,10 +230,6 @@ if [ "$VERSION" == "debug" ] ; then
 fi
 
 ln -s /lib/systemd/system/hciuart.service /etc/systemd/system/multi-user.target.wants/hciuart.service
-
-#-------------blueman--------------
-bash /etc/init.d/blueman.sh
-rm /etc/init.d/blueman.sh
 
 #---------------ncurses library--------------
 # For tinker-power-management build
@@ -254,12 +254,11 @@ chmod 775 /etc/init.d/voltage-detect.py
 
 plymouth-set-default-theme script
 
-# Don't show this on menu for now since it does not work.
-rm /usr/share/applications/squeak.desktop
-
 # With the packages xfonts-100dpi and xfonts-75dpi installed, this is to avoid warning when opening xkeycaps.
 xset +fp /usr/share/fonts/X11/75dpi/
 xset +fp /usr/share/fonts/X11/100dpi/
+
+echo $VERSION_NUMBER > /etc/version
 #-------ASUS customization end-------
 
 #---------------Clean--------------
