@@ -1,11 +1,18 @@
 #!/bin/bash
 
-sudo -u linaro PULSE_RUNTIME_PATH=/run/user/1000/pulse pacmd set-card-profile alsa_card.platform-sound-simple-card off
-sudo -u linaro PULSE_RUNTIME_PATH=/run/user/1000/pulse pacmd set-card-profile alsa_card.usb-Generic_USB_Audio_201405280001-00 off
+projectid=`cat /proc/projectid`
+boardid=`cat /proc/boardid`
+echo project=${projectid};
+echo boardid=${boardid};
 
-boardinfo=`cat /proc/boardinfo`
-if [ "${boardinfo}" != "Tinker Board S" ] && [ "${boardinfo}" != "Tinker R/BR" ] && [ "${boardinfo}" != "Tinker Board S/HV" ] && [ "${boardinfo}" != "Tinker Board R2" ] && [ "${boardinfo}" != "Tinker Board S R2.0" ]; then
-	exit 0
+if [ "${projectid}" == "7" ]; then
+        if [ "${boardid}" == "0" ]; then
+                exit 0
+        elif [ "${boardid}" == "1" ]; then
+                exit 0
+        elif [ "${boardid}" == "2" ]; then
+                exit 0
+        fi
 fi
 
 source /etc/audio/audio.conf

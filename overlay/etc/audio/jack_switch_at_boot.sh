@@ -1,8 +1,18 @@
 #!/bin/bash
 
-boardinfo=`cat /proc/boardinfo`
-if [ "${boardinfo}" != "Tinker Board S" ] && [ "${boardinfo}" != "Tinker R/BR" ] && [ "${boardinfo}" != "Tinker Board S/HV" ] && [ "${boardinfo}" != "Tinker Board R2" ] && [ "${boardinfo}" != "Tinker Board S R2.0" ]; then
-	exit 0
+projectid=`cat /proc/projectid`
+boardid=`cat /proc/boardid`
+echo project=${projectid};
+echo boardid=${boardid};
+
+if [ "${projectid}" == "7" ]; then
+	if [ "${boardid}" == "0" ]; then
+		exit 0
+	elif [ "${boardid}" == "1" ]; then
+		exit 0
+	elif [ "${boardid}" == "2" ]; then
+		exit 0
+	fi
 fi
 
 gpio=`cat /sys/class/gpio/gpio220/value`
