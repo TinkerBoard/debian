@@ -1,0 +1,47 @@
+From 43db464cbe2ea620dc7454aeb0fa9aa600547b5f Mon Sep 17 00:00:00 2001
+From: gary_gen <Gary_Gen@asus.com>
+Date: Thu, 22 Jul 2021 16:42:45 +0800
+Subject: [PATCH] mppvideodec: Remove mpeg2 decoder
+
+---
+ debian/changelog                 | 7 +++++++
+ gst/rockchipmpp/gstmppvideodec.c | 2 +-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
+ mode change 100644 => 100755 debian/changelog
+ mode change 100644 => 100755 gst/rockchipmpp/gstmppvideodec.c
+
+diff --git a/debian/changelog b/debian/changelog
+old mode 100644
+new mode 100755
+index 62907ac..860a8e1
+--- a/debian/changelog
++++ b/debian/changelog
+@@ -1,3 +1,10 @@
++gstreamer1.0-rockchip (20210722) testing; urgency=medium
++
++  [ Gary_Gen ]
++  * rockchipmpp: remove mpeg2 decoder
++
++ -- Gary_Gen <Gary_Gen@asus.com>  Thu Jul 22 16:42:45 2021 +0800
++
+ gstreamer1.0-rockchip (1.14-1) testing; urgency=medium
+ 
+   [ Randy Li ]
+diff --git a/gst/rockchipmpp/gstmppvideodec.c b/gst/rockchipmpp/gstmppvideodec.c
+old mode 100644
+new mode 100755
+index 9aedf95..0e5c0b7
+--- a/gst/rockchipmpp/gstmppvideodec.c
++++ b/gst/rockchipmpp/gstmppvideodec.c
+@@ -55,7 +55,7 @@ static GstStaticPadTemplate gst_mpp_video_dec_sink_template =
+         "parsed = (boolean) true"
+         ";"
+         "video/mpeg,"
+-        "mpegversion = (int) { 1, 2, 4 },"
++        "mpegversion = (int) { 1, 4 },"
+         "parsed = (boolean) true,"
+         "systemstream = (boolean) false"
+         ";" "video/x-vp8" ";" "video/x-vp9" ";")
+-- 
+2.7.4
+
