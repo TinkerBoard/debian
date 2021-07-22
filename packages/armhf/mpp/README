@@ -1,0 +1,13 @@
+//////////////////////////////////////////////////////////
+librockchip-mpp-dev_20210722_armhf.deb
+librockchip-mpp1-dbgsym_20210722_armhf.deb
+librockchip-mpp1_20210722_armhf.deb
+librockchip-vpu0-dbgsym_20210722_armhf.deb
+librockchip-vpu0_20210722_armhf.deb
+rockchip-mpp-demos-dbgsym_20210722_armhf.deb
+rockchip-mpp-demos_20210722_armhf.deb
+https://github.com/JeffyCN/rockchip_mirrors/tree/mpp
+branch:mpp
+The last RK's commit: 41c9c809b0c1d7164954468daf20710ffac1f87d
+RK   Patch:0001-hal_h264e_vepu1-Fix-error-on-sei_mode.patch
+ASUS Patch:0002-add-fix-h264-encoder-changelog.patch

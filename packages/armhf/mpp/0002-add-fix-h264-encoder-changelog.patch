@@ -1,0 +1,30 @@
+From fe04d956fac4d1c32035b309e88024a2a3217c0d Mon Sep 17 00:00:00 2001
+From: gary_gen <Gary_Gen@asus.com>
+Date: Thu, 22 Jul 2021 16:04:17 +0800
+Subject: [PATCH] add fix h264 encoder changelog
+
+---
+ debian/changelog | 7 +++++++
+ 1 file changed, 7 insertions(+)
+ mode change 100644 => 100755 debian/changelog
+
+diff --git a/debian/changelog b/debian/changelog
+old mode 100644
+new mode 100755
+index 7d12d89..09dac75
+--- a/debian/changelog
++++ b/debian/changelog
+@@ -1,3 +1,10 @@
++mpp (20210722) stable; urgency=critical
++
++  [ Herman Chen ]
++  * [hal_h264e_vepu1]: Fix error on sei_mode
++
++ -- Gary_Gen <Gary_Gen@asus.com>  Thu Jul 22 16:04:17 2021 +0800
++
+ mpp (1.4.0-1) stable; urgency=critical
+ 
+   [ Herman Chen ]
+-- 
+2.7.4
+

@@ -128,7 +128,7 @@ echo -e "\033[36m Setup Video.................... \033[0m"
 #gstreamer1.0-plugins-base-apps qtmultimedia5-examples
 apt-get install -f -y
 
-dpkg -i  /packages/mpp/*
+dpkg -i  /packages/mpp/*.deb
 dpkg -i  /packages/gst-rkmpp/*.deb
 #apt-mark hold gstreamer1.0-x
 apt-get install -f -y
