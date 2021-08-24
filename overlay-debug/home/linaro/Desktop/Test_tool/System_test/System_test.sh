@@ -2,31 +2,37 @@
 
 version=1.6.1
 
+log()
+{
+	logfile="/dev/kmsg"
+	echo -e $1 | sudo tee $logfile
+}
+
 select_test_item()
 {
-	echo "************************************************************"
-	echo
-	echo "         Tinker Board (S) System Test tool v_$version"
-	echo
-	echo "************************************************************"
-	echo
-	echo "1. Start shutdown test"
-	echo "2. Start reboot test"
-	echo "3. Start suspend test"
-	echo "4. Stop test"
-	echo "5. Check test count"
+	log "************************************************************"
+	log ""
+	log "         Tinker Board (S) System Test tool v_$version"
+	log ""
+	log  "************************************************************"
+	log ""
+	log "1. Start shutdown test"
+	log "2. Start reboot test"
+	log "3. Start suspend test"
+	log "4. Stop test"
+	log "5. Check test count"
 	read -p "Select test case: " test_item
-	echo
+	log ""
 }
 
 info_view()
 {
-	echo "*******************************************"
-	echo
-	echo "          $1 stress test start"
-	echo
-	echo "*******************************************"
-	echo "Reset test counter"
+	log "*******************************************"
+	log ""
+	log "          $1 stress test start"
+	log ""
+	log "*******************************************"
+	log "Reset test counter"
 	sudo rm /etc/*_times.txt
 }
 
@@ -54,10 +60,10 @@ case $test_item in
 		sudo cp $path/rc_shutdown.local /etc/rc.local
 		sudo chmod 755 /etc/rc_shutdown.sh
 		sudo chmod 755 /etc/rc.local
-		echo ""
-		sudo bash -c "echo +20 > /sys/class/rtc/rtc0/wakealarm"
+		sync
 		sleep 5
-		sudo systemctl poweroff
+		echo 1 | sudo tee /proc/sys/kernel/sysrq
+		echo b | sudo tee /proc/sysrq-trigger
 		;;
 	2)
 		info_view Reboot
@@ -65,9 +71,10 @@ case $test_item in
 		sudo cp $path/rc_reboot.local /etc/rc.local
 		sudo chmod 755 /etc/rc_reboot.sh
 		sudo chmod 755 /etc/rc.local
-		echo ""
+		sync
 		sleep 5
-		sudo systemctl reboot
+		echo 1 | sudo tee /proc/sys/kernel/sysrq
+		echo b | sudo tee /proc/sysrq-trigger
 		;;
 	3)
 		info_view Suspend
@@ -75,18 +82,22 @@ case $test_item in
 		#echo performance | sudo tee $(find /sys/ -name *governor)
 		while true; do
 			sleep 10
+			log "DUT try to suspend"
 			sudo bash $path/suspend_test.sh
+			log "DUT resume successfully"
 			sleep 5
 			((times+=1))
-			echo "suspend_times = "$times | sudo tee /etc/suspend_times.txt
+			log "suspend_times = "$times | sudo tee /etc/suspend_times.txt
 		done
 		;;
 	4)
-		echo "Stop test, device will reboot again after 5 second"
+		log "Stop test, device will reboot again after 5 second"
 		sudo cp $path/rc_stop.local /etc/rc.local
 		sudo bash -c "./System_test.sh 5"
+		sync
 		sleep 5
-		sudo systemctl reboot
+		echo 1 | sudo tee /proc/sys/kernel/sysrq
+		echo b | sudo tee /proc/sysrq-trigger
 		;;
 	5)
 		if [ -f /etc/shutdown_times.txt ]; then
@@ -100,7 +111,7 @@ case $test_item in
 		fi
 		;;
 	*)
-		echo "Unknown test case!"
+		log "Unknown test case!"
 		;;
 esac
 

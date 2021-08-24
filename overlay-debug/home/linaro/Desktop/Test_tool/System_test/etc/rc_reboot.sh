@@ -1,12 +1,18 @@
 #!/bin/bash
 
-echo "Stress Test of Reboot."
+log()
+{
+	logfile="/dev/kmsg"
+	echo -e $1 | sudo tee $logfile
+}
+
+log "Stress Test of Reboot."
 
 times=$(grep -r "reboot_times" /etc/reboot_times.txt | awk '{print $3}')
 
-echo "########## Reboot device from test_Reboot.sh ##########"
+log "########## Reboot device from test_Reboot.sh ##########"
 ((times+=1))
-echo "reboot_times = "$times > /etc/reboot_times.txt
+log "reboot_times = "$times | sudo tee /etc/reboot_times.txt
 #systemctl reboot
 sync
 echo 1 | sudo tee /proc/sys/kernel/sysrq
