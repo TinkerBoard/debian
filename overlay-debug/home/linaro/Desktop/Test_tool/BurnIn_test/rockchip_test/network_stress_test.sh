@@ -11,6 +11,6 @@ fi
 
 while [ 1 != 2 ]
 do
-	curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -
+  curl --insecure -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | PYTHONHTTPSVERIFY=0 python -
 done
 
