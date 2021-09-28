@@ -244,6 +244,8 @@ chmod 755 /etc/audio/jack_auto_switch.sh
 chmod 755 /etc/audio/jack_switch_at_boot.sh
 ls -s /lib/systemd/system/jack-switch-at-boot.service /etc/systemd/system/multi-user.target.wants/jack-switch-at-boot.service
 chmod 755 /etc/audio/audio_setting.sh
+ln -s /lib/systemd/system/resume-onboard-audio.service /etc/systemd/system/suspend.target.wants/resume-onboard-audio.service
+chmod 755 /etc/audio/resume_onboard_audio.sh
 
 #--------------Wi-Fi--------------
 ln -s /lib/systemd/system/wifi.service /etc/systemd/system/multi-user.target.wants/wifi.service

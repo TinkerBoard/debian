@@ -1,0 +1,10 @@
+[Unit]
+Description=Resume onboard audio module of pulseaudio from suspend
+After=suspend.target
+
+[Service]
+Type=oneshot
+ExecStart=/etc/audio/resume_onboard_audio.sh
+
+[Install]
+WantedBy=suspend.target
