@@ -254,8 +254,6 @@ ln -s /lib/systemd/system/wifi.service /etc/systemd/system/multi-user.target.wan
 ln -s /lib/systemd/system/voltage-detect.service /etc/systemd/system/multi-user.target.wants/voltage-detect.service
 chmod 775 /etc/init.d/voltage-detect.py
 
-plymouth-set-default-theme script
-
 # With the packages xfonts-100dpi and xfonts-75dpi installed, this is to avoid warning when opening xkeycaps.
 xset +fp /usr/share/fonts/X11/75dpi/
 xset +fp /usr/share/fonts/X11/100dpi/
