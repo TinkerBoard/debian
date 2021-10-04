@@ -264,6 +264,12 @@ echo $VERSION_NUMBER > /etc/version
 #---------------Clean--------------
 rm -rf /var/lib/apt/lists/*
 
+#-------ASUS customization start-------
+apt-get clean
+
+cat /dev/null > ~/.bash_history && history -c
+#-------ASUS customization end-------
+
 EOF
 
 sudo umount $TARGET_ROOTFS_DIR/dev
