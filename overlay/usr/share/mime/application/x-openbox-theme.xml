@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mime-type xmlns="http://www.freedesktop.org/standards/shared-mime-info" type="application/x-openbox-theme">
+  <!--Created automatically by update-mime-database. DO NOT EDIT!-->
+  <comment xml:lang="en">openbox theme archive</comment>
+  <comment xml:lang="zh_TW">openbox 佈景主題存檔</comment>
+  <comment xml:lang="ru">архив темы openbox</comment>
+  <sub-class-of type="application/x-gzip"/>
+  <glob pattern="*.obt"/>
+</mime-type>
