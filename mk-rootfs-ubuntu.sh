@@ -48,6 +48,8 @@ sudo tar -C $TARGET_ROOTFS_DIR -xpf ubuntu-base-armhf.tar.gz
 
 # overlay folder
 ###sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
+sudo cp overlay/lib/systemd/system/resize-helper.service $TARGET_ROOTFS_DIR/lib/systemd/system/resize-helper.service
+sudo cp overlay/usr/sbin/resize-helper $TARGET_ROOTFS_DIR/usr/sbin/resize-helper
 
 # overlay-firmware folder
 ###sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
@@ -234,6 +236,8 @@ echo "  renderer: NetworkManager" >> /etc/netplan/01-network-manager-all.yaml
 
 # Remove packages which are not needed.
 apt autoremove -y
+
+systemctl enable resize-helper.service
 
 ###bash /etc/init.d/blueman.sh
 ###rm /etc/init.d/blueman.sh
