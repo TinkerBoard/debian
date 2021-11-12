@@ -221,6 +221,9 @@ rm /usr/share/applications/squeak.desktop
 
 systemctl enable rockchip.service
 
+# Enable adbd.service for debug build.
+systemctl enable adbd.service
+
 # mount partition p7
 systemctl enable mountboot.service
 
